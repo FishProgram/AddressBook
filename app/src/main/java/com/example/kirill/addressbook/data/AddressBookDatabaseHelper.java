@@ -9,14 +9,27 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 
 public class AddressBookDatabaseHelper extends SQLiteOpenHelper {
+    private static final String DATABASE_NAME = "AddressBook.db";
+    private static final int DATABASE_VERSION = 1;
 
-    public AddressBookDatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
+    public AddressBookDatabaseHelper(Context context){
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
+
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-
+        final  String CREATE_CONTACTS_TABLE =
+                "CREATE TABLE " + DatabaseDescription.Contact.TABLE_NAME + "(" +
+                        DatabaseDescription.Contact._ID + " integer primary key, " +
+                        DatabaseDescription.Contact.COLUMN_NAME + " Text, " +
+                        DatabaseDescription.Contact.COLUMN_PHONE + " Text, " +
+                        DatabaseDescription.Contact.COLUMN_EMAIL + " Text, " +
+                        DatabaseDescription.Contact.COLUMN_STREET + " Text, " +
+                        DatabaseDescription.Contact.COLUMN_CITY + " Text, " +
+                        DatabaseDescription.Contact.COLUMN_STATE + " Text, " +
+                        DatabaseDescription.Contact.COLUMN_ZIP + " Text);";
+        db.execSQL(CREATE_CONTACTS_TABLE);
     }
 
     @Override
